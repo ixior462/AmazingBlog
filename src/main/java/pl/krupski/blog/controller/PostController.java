@@ -16,8 +16,9 @@ public class PostController {
         this.postService = postService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/post", produces = "application/json;charset=utf-8")
-    public List<Post> getAllUsers() {
+    public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
 
@@ -25,5 +26,23 @@ public class PostController {
     @PostMapping(value = "/post")
     public void createNewPost(@RequestBody String text) {
         postService.createNewPost(text);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping(value = "/post")
+    public void updatePost(@RequestParam String id, @RequestBody String text) {
+        postService.editPost(id, text);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping(value = "/post")
+    public void deletePost(@RequestBody String id) {
+        postService.deletePost(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/findPost", produces = "application/json;charset=utf-8")
+    public Post getPost(@RequestBody String id) {
+        return postService.findPostById(id);
     }
 }
